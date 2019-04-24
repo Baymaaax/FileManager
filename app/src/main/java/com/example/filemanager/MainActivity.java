@@ -15,12 +15,14 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.filemanager.tools.FileDeleter;
 import com.example.filemanager.tools.FileSearcher;
 import com.example.filemanager.tools.FileTpye;
 import com.example.filemanager.tools.FilterByType;
 import com.example.filemanager.tools.Stack;
+import com.example.filemanager.tools.UnitConversion;
 
 import java.io.File;
 import java.util.List;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         spaceMessageInit();
 
     }
+
     public void requestAllPower() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -56,15 +59,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     private void spaceMessageInit() {
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-        int freeSpace = (int) (dir.getFreeSpace() / (1024 * 1024));
-        int totalSpace = (int) (dir.getTotalSpace() / (1024 * 1024));
-        int usedSpace = totalSpace - freeSpace;
+//        int freeSpace = (int) (dir.getFreeSpace() / (1024 * 1024));
+//        int totalSpace = (int) (dir.getTotalSpace() / (1024 * 1024));
+//        int usedSpace = totalSpace - freeSpace;
+        int freeSpace=UnitConversion.getGB(dir.getFreeSpace());
+        int totalSpace=UnitConversion.getGB(dir.getTotalSpace());
+        int usedSpace=totalSpace-freeSpace;
         spaceMessage = (TextView) findViewById(R.id.space_message);
-        spaceMessage.setText("已使用：" + usedSpace + "MB" + "\n" +
-                "总共：" + totalSpace + "MB" + "\n" +
-                "剩余：" + freeSpace + "MB");
+        spaceMessage.setText("已使用：" + usedSpace + "GB" + "\n" +
+                "总共：" + totalSpace + "GB" + "\n" +
+                "剩余：" + freeSpace + "GB");
     }
 
     private void cacheCleanerInit() {
@@ -72,32 +79,49 @@ public class MainActivity extends AppCompatActivity {
         cleanerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String path = Environment.getExternalStorageDirectory().toString()+ "/Android/data";
+                String path = Environment.getExternalStorageDirectory().toString() + "/Android/data";
                 File dataFile = new File(path);
-                File[] packages=dataFile.listFiles();
-                Stack cacheStack=new Stack();
-//
-//
-                for(File file:packages){
-                    File[] packageInnerDir=file.listFiles();
-                    if(!(packageInnerDir==null)){
-                        for(File f:packageInnerDir){
-                            if(f.getName().equals("cache")){
+                File[] packages = dataFile.listFiles();
+                Stack cacheStack = new Stack();
+                for (File file : packages) {
+                    File[] packageInnerDir = file.listFiles();
+                    if (!(packageInnerDir == null)) {
+                        for (File f : packageInnerDir) {
+                            if (f.getName().equals("cache")) {
                                 cacheStack.push(f);
                             }
                         }
                     }
                 }
+                long totalCacheSize=0;
 
-                while (!cacheStack.isEmpty()){
-                    File cacheDir=(File) cacheStack.pop();
-                    Log.i("/cleaner",cacheDir.getAbsolutePath());
+                while (!cacheStack.isEmpty()) {
+                    File cacheDir = (File) cacheStack.pop();
+                    Log.i("/cleaner", cacheDir.getAbsolutePath());
+                    totalCacheSize+=getTotalSize(cacheDir);
                     FileDeleter.deleteInner(cacheDir);
                 }
+                Toast.makeText(MainActivity.this,
+                        "已清除"+UnitConversion.getKB(totalCacheSize)+"KB", Toast.LENGTH_SHORT).show();
 
             }
 
         });
+    }
+
+    private long getTotalSize(File dir) {
+        long totalSize = 0;
+        if (dir.isFile()) {
+            totalSize = dir.length();
+            return dir.length();
+        } else if (dir.isDirectory()) {
+            File[] children = dir.listFiles();
+            if (children != null) {
+                for (File child : children)
+                    totalSize += getTotalSize(child);
+            }
+        }
+        return totalSize;
     }
 
 

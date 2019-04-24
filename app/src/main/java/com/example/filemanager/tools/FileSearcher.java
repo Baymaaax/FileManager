@@ -11,10 +11,7 @@ public class FileSearcher {
         this.rootDir = dir;
         filter = new FilterByType(fileType);
     }
-//    public FileSearcher(File dir, int fileType,String dirName){
-//        this.rootDir=dir;
-//
-//    }
+
 
     public File[] search() {
         ArrayList<File> fileArrayList = new ArrayList<File>();
