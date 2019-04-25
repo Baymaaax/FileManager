@@ -31,8 +31,8 @@ public class DocumentActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(DocumentActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent =new Intent(DocumentActivity.this, MainActivity.class);
+//                startActivity(intent);
                 DocumentActivity.this.finish();
             }
         });
@@ -56,11 +56,7 @@ public class DocumentActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder dialog=new AlertDialog.Builder(DocumentActivity.this);
                 dialog.setTitle("删除");
-                if(files[position].isDirectory()){
-                    dialog.setMessage("是否要删除此文件夹");
-                }else {
-                    dialog.setMessage("是否要删除此文件");
-                }
+                dialog.setMessage("是否要删除此文本文件");
                 dialog.setCancelable(false);
                 dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override

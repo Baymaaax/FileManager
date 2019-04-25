@@ -6,14 +6,15 @@
     <ImageView
         android:id="@+id/document_image"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="8dp"/>
 
     <TextView
         android:id="@+id/document_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/document_image"
-        android:textSize="20dp" />
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/document_path"
@@ -21,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/document_name"
         android:layout_toRightOf="@id/document_image"
-        android:textSize="20dp" />
+        android:textSize="15dp"
+        android:textColor="@color/light_gray"/>
 
 
 </RelativeLayout>

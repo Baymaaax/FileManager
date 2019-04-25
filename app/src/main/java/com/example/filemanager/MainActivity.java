@@ -1,6 +1,7 @@
 package com.example.filemanager;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -19,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.filemanager.tools.CacheCleaner;
 import com.example.filemanager.tools.FileDeleter;
 import com.example.filemanager.tools.FileSearcher;
 import com.example.filemanager.tools.FileTpye;
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,InfoActivity.class);
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
                 startActivity(intent);
             }
         });
@@ -81,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
         int totalSpace = UnitConversion.getGB(dir.getTotalSpace());
         int usedSpace = totalSpace - freeSpace;
         spaceMessage = (TextView) findViewById(R.id.space_message);
-        spaceMessage.setText("已使用：" + usedSpace + "GB" + "\n" +
-                "总共：" + totalSpace + "GB" + "\n" +
-                "剩余：" + freeSpace + "GB");
+        spaceMessage.setText("总 共：" + totalSpace + "GB" + "\n" +
+                "已 用：" + usedSpace + "GB" + "\n" +
+                "剩 余：" + freeSpace + "GB");
     }
 
     private void cacheCleanerInit() {
@@ -91,51 +94,31 @@ public class MainActivity extends AppCompatActivity {
         cleanerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String path = Environment.getExternalStorageDirectory().toString() + "/Android/data";
-                File dataFile = new File(path);
-                File[] packages = dataFile.listFiles();
-                Stack cacheStack = new Stack();
-                for (File file : packages) {
-                    File[] packageInnerDir = file.listFiles();
-                    if (!(packageInnerDir == null)) {
-                        for (File f : packageInnerDir) {
-                            if (f.getName().equals("cache")) {
-                                cacheStack.push(f);
-                            }
-                        }
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("一键清理");
+                dialog.setMessage("是否要删除所有缓存文件");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        CacheCleaner cleaner = new CacheCleaner();
+                        cleaner.clean();
+                        int cachesize = UnitConversion.getMB(cleaner.getCleanedCacheSize());
+                        Toast.makeText(MainActivity.this,
+                                "已清除" + cachesize + "MB", Toast.LENGTH_SHORT).show();
                     }
-                }
-                long totalCacheSize = 0;
-
-                while (!cacheStack.isEmpty()) {
-                    File cacheDir = (File) cacheStack.pop();
-                    Log.i("/cleaner", cacheDir.getAbsolutePath());
-                    totalCacheSize += getTotalSize(cacheDir);
-                    FileDeleter.deleteInner(cacheDir);
-                }
-                Toast.makeText(MainActivity.this,
-                        "已清除" + UnitConversion.getKB(totalCacheSize) + "KB", Toast.LENGTH_SHORT).show();
-
+                });
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
 
         });
     }
-
-    private long getTotalSize(File dir) {
-        long totalSize = 0;
-        if (dir.isFile()) {
-            totalSize = dir.length();
-            return dir.length();
-        } else if (dir.isDirectory()) {
-            File[] children = dir.listFiles();
-            if (children != null) {
-                for (File child : children)
-                    totalSize += getTotalSize(child);
-            }
-        }
-        return totalSize;
-    }
-
 
     private void categoryListInit() {
         categoryList = (ListView) findViewById(R.id.category_list);

@@ -35,8 +35,8 @@ public class AllFilesActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AllFilesActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(AllFilesActivity.this, MainActivity.class);
+//                startActivity(intent);
                 AllFilesActivity.this.finish();
             }
         });

@@ -7,24 +7,25 @@
         android:id="@+id/music_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/image_folder" />
+        android:padding="8dp"
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/music_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/music_image"
         android:text="name"
-        android:textSize="20dp"
-        android:layout_toRightOf="@id/music_image"/>
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/music_path"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="path"
-        android:textSize="20dp"
         android:layout_below="@id/music_name"
-        android:layout_toRightOf="@id/music_image"/>
+        android:layout_toRightOf="@id/music_image"
+        android:textSize="15dp"
+        android:textColor="@color/light_gray"/>
 
 
 </RelativeLayout>

@@ -33,8 +33,8 @@ public class VideoActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VideoActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(VideoActivity.this, MainActivity.class);
+//                startActivity(intent);
                 VideoActivity.this.finish();
             }
         });
@@ -57,11 +57,7 @@ public class VideoActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder dialog=new AlertDialog.Builder(VideoActivity.this);
                 dialog.setTitle("删除");
-                if(files[position].isDirectory()){
-                    dialog.setMessage("是否要删除此文件夹");
-                }else {
-                    dialog.setMessage("是否要删除此文件");
-                }
+                dialog.setMessage("是否要删除此视频文件");
                 dialog.setCancelable(false);
                 dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override

@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:background="@color/transparent"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="13dp"
             android:src="@drawable/home_button" />
     </RelativeLayout>
     <ListView
