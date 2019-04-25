@@ -4,11 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView spaceMessage;
     private ImageButton cleanerButton;
     private ListView categoryList;
+    private ImageButton infoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,19 @@ public class MainActivity extends AppCompatActivity {
         categoryListInit();
         cacheCleanerInit();
         spaceMessageInit();
+        infoButtonInit();
 
+    }
+
+    private void infoButtonInit() {
+        infoButton = (ImageButton) findViewById(R.id.info_button);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,InfoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void requestAllPower() {
@@ -62,12 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void spaceMessageInit() {
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-//        int freeSpace = (int) (dir.getFreeSpace() / (1024 * 1024));
-//        int totalSpace = (int) (dir.getTotalSpace() / (1024 * 1024));
-//        int usedSpace = totalSpace - freeSpace;
-        int freeSpace=UnitConversion.getGB(dir.getFreeSpace());
-        int totalSpace=UnitConversion.getGB(dir.getTotalSpace());
-        int usedSpace=totalSpace-freeSpace;
+        int freeSpace = UnitConversion.getGB(dir.getFreeSpace());
+        int totalSpace = UnitConversion.getGB(dir.getTotalSpace());
+        int usedSpace = totalSpace - freeSpace;
         spaceMessage = (TextView) findViewById(R.id.space_message);
         spaceMessage.setText("已使用：" + usedSpace + "GB" + "\n" +
                 "总共：" + totalSpace + "GB" + "\n" +
@@ -93,16 +105,16 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-                long totalCacheSize=0;
+                long totalCacheSize = 0;
 
                 while (!cacheStack.isEmpty()) {
                     File cacheDir = (File) cacheStack.pop();
                     Log.i("/cleaner", cacheDir.getAbsolutePath());
-                    totalCacheSize+=getTotalSize(cacheDir);
+                    totalCacheSize += getTotalSize(cacheDir);
                     FileDeleter.deleteInner(cacheDir);
                 }
                 Toast.makeText(MainActivity.this,
-                        "已清除"+UnitConversion.getKB(totalCacheSize)+"KB", Toast.LENGTH_SHORT).show();
+                        "已清除" + UnitConversion.getKB(totalCacheSize) + "KB", Toast.LENGTH_SHORT).show();
 
             }
 

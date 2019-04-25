@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MusicActivity">
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/light_blue"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="15dp"
+            android:paddingBottom="8dp"
+            android:text="详细信息"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/home_button_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/home_button" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_bar">
+
+        <TableRow
+            android:paddingTop="15dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="手机品牌"
+                android:textSize="23dp" />
+
+            <TextView
+                android:id="@+id/brand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="Android"
+                android:textSize="18dp" />
+        </TableRow>
+        <TableRow
+            android:paddingTop="5dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="手机型号"
+                android:textSize="23dp" />
+
+            <TextView
+                android:id="@+id/model"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="Android"
+                android:textSize="18dp" />
+        </TableRow>
+        <TableRow
+            android:paddingTop="5dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="系统版本"
+                android:textSize="23dp" />
+
+            <TextView
+                android:id="@+id/system_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="Android"
+                android:textSize="18dp" />
+        </TableRow>
+        <TableRow
+            android:paddingTop="5dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="固件版本"
+                android:textSize="23dp" />
+
+            <TextView
+                android:id="@+id/firmware_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="Android"
+                android:textSize="18dp" />
+        </TableRow>
+
+
+
+
+    </TableLayout>
+
+</RelativeLayout>
