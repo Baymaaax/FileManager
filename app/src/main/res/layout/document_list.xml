@@ -7,7 +7,8 @@
         android:id="@+id/document_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"/>
+        android:padding="8dp"
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/document_name"
