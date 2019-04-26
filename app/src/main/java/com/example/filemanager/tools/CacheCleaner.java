@@ -29,26 +29,6 @@ public class CacheCleaner {
     }
 
     /*
-    获取dir的总大小
-    dir是文件时，返回文件大小
-    dir是目录时，对dir内的文件递归调用本方法
-     */
-    private long getTotalSize(File dir) {
-        long totalSize = 0;
-        if (dir.isFile()) {
-            totalSize = dir.length();
-            return dir.length();
-        } else if (dir.isDirectory()) {
-            File[] children = dir.listFiles();
-            if (children != null) {
-                for (File child : children)
-                    totalSize += getTotalSize(child);
-            }
-        }
-        return totalSize;
-    }
-
-    /*
     清理缓存方法
     搜索/data下的各个包，有cache文件夹的话压栈
     搜索完毕后，将栈内cache文件弹出，并调用deleteInner()方法删除内部缓存文件
@@ -71,7 +51,7 @@ public class CacheCleaner {
         while (!cacheStack.isEmpty()) {
             File cacheDir = (File) cacheStack.pop();
             Log.i("/cleaner", cacheDir.getAbsolutePath());
-            cleanedCacheSize += getTotalSize(cacheDir);
+            cleanedCacheSize += FileTools.getTotalSize(cacheDir);
             FileDeleter.deleteInner(cacheDir);
         }
 

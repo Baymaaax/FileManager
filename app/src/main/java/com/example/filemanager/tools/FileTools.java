@@ -23,6 +23,34 @@ public class FileTools {
     public final static String[] documentSuffix = {".txt", ".doc"};//文本文件后缀名
     public final static String[] imageSuffix = {".jpg", ".png"};//图片文件后缀名
 
+    /*
+    获取dir的总大小
+    dir是文件时，返回文件大小
+    dir是目录时，对dir内的文件递归调用本方法
+    */
+    public static long getTotalSize(File dir) {
+        long totalSize = 0;
+        if (dir.isFile()) {
+            totalSize = dir.length();
+            return dir.length();
+        } else if (dir.isDirectory()) {
+            File[] children = dir.listFiles();
+            if (children != null) {
+                for (File child : children)
+                    totalSize += getTotalSize(child);
+            }
+        }
+        return totalSize;
+    }
+    //获取File[] 内所有文件总大小
+    public static long getTotalSize(File[] files){
+        long totalSize=0;
+        for(File file:files){
+            totalSize+=getTotalSize(file);
+        }
+        return totalSize;
+    }
+
     //获取文件类型方法，通过文件名是否与后缀名字符串相同判断。
     public static int getFileType(File file) {
         for (String suffix : FileTools.musicSuffix) {

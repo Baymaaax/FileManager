@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.filemanager.tools.CacheCleaner;
+import com.example.filemanager.tools.FileSearcher;
 import com.example.filemanager.tools.FileTools;
 import com.example.filemanager.tools.UnitConversion;
 
@@ -74,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
     //存储空间信息初始化
     private void spaceMessageInit() {
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-        int freeSpace = UnitConversion.getGB(dir.getFreeSpace());
-        int totalSpace = UnitConversion.getGB(dir.getTotalSpace());
-        int usedSpace = totalSpace - freeSpace;
+        float freeSpace = UnitConversion.getGB(dir.getFreeSpace());
+        float totalSpace = UnitConversion.getGB(dir.getTotalSpace());
+        float usedSpace = totalSpace - freeSpace;
         spaceMessage = (TextView) findViewById(R.id.space_message);
         spaceMessage.setText("总 共：" + totalSpace + "GB" + "\n" +
                 "已 用：" + usedSpace + "GB" + "\n" +
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         CacheCleaner cleaner = new CacheCleaner();
                         cleaner.clean();
                         //获取已清除缓存大小，换算成MB
-                        int cachesize = UnitConversion.getMB(cleaner.getCleanedCacheSize());
+                        float cachesize = UnitConversion.getMB(cleaner.getCleanedCacheSize());
                         Toast.makeText(MainActivity.this,
                                 "已清除" + cachesize + "MB", Toast.LENGTH_SHORT).show();
                     }
@@ -119,9 +120,25 @@ public class MainActivity extends AppCompatActivity {
 
     //初始化目录列表，包含音乐、视频、文档、图片、全部文件类别。并添加点击事件跳转到各自Activity
     private void categoryListInit() {
+        String musicSize;
+        String videoSize;
+        String documentSize;
+        String imageSize;
+        String allFileSize="";
+        File rootDir = new File(Environment.getExternalStorageDirectory().toString());
+        FileSearcher musicSearcher=new FileSearcher(rootDir,FileTools.MUSIC);
+        FileSearcher videoSearcher=new FileSearcher(rootDir,FileTools.VIDEO);
+        FileSearcher documentSearcher=new FileSearcher(rootDir,FileTools.DOCUMENT);
+        FileSearcher imageSearcher=new FileSearcher(rootDir,FileTools.IMAGE);
+        musicSize=UnitConversion.getMB(FileTools.getTotalSize(musicSearcher.search()))+"MB";
+        videoSize=UnitConversion.getMB(FileTools.getTotalSize(videoSearcher.search()))+"MB";
+        documentSize=UnitConversion.getMB(FileTools.getTotalSize(documentSearcher.search()))+"MB";
+        imageSize=UnitConversion.getMB(FileTools.getTotalSize(imageSearcher.search()))+"MB";
+        String[] size={musicSize,videoSize,documentSize,imageSize,allFileSize};
+
         categoryList = (ListView) findViewById(R.id.category_list);
         final CategoryListAdapter categoryListAdapter = new CategoryListAdapter(MainActivity.this
-                , categoryPicture, categoryName);
+                , categoryPicture, categoryName,size);
         categoryList.setAdapter(categoryListAdapter);
         categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -130,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
                     case FileTools.MUSIC: {
                         Intent intent = new Intent(MainActivity.this, MusicActivity.class);
                         startActivity(intent);
-
                     }
                     break;
                     case FileTools.VIDEO: {
