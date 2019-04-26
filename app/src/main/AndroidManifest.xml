@@ -28,7 +28,6 @@
         <activity android:name=".DocumentActivity" />
         <activity android:name=".VideoActivity" />
         <activity android:name=".MusicActivity" />
-        <activity android:name=".LoginActivity" />
         <activity
             android:name=".SplashScreen"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">

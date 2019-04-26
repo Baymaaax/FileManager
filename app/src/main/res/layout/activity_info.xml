@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="手机品牌"
-                android:textSize="23dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/brand"
@@ -60,7 +60,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:text="Android"
-                android:textSize="18dp" />
+                android:textSize="15dp" />
         </TableRow>
         <TableRow
             android:paddingTop="5dp"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="手机型号"
-                android:textSize="23dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/model"
@@ -82,7 +82,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:text="Android"
-                android:textSize="18dp" />
+                android:textSize="15dp" />
         </TableRow>
         <TableRow
             android:paddingTop="5dp"
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="系统版本"
-                android:textSize="23dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/system_version"
@@ -104,7 +104,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:text="Android"
-                android:textSize="18dp" />
+                android:textSize="15dp" />
         </TableRow>
         <TableRow
             android:paddingTop="5dp"
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="固件版本"
-                android:textSize="23dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/firmware_version"
@@ -126,7 +126,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:text="Android"
-                android:textSize="18dp" />
+                android:textSize="15dp" />
         </TableRow>
 
 

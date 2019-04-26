@@ -8,17 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.filemanager.R;
-
 import java.io.File;
 
 public class DocumentListAdapter extends BaseAdapter {
     private File[] files;
     private Context mContext;
-    DocumentListAdapter(Context mContext,File[] files){
-        this.mContext=mContext;
-        this.files=files;
+
+    DocumentListAdapter(Context mContext, File[] files) {
+        this.mContext = mContext;
+        this.files = files;
     }
+
     @Override
     public int getCount() {
         return files.length;
@@ -36,10 +36,10 @@ public class DocumentListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView=LayoutInflater.from(mContext).inflate(R.layout.document_list,null);
-        ImageView documentImage=(ImageView)convertView.findViewById(R.id.document_image);
-        TextView documentName=(TextView)convertView.findViewById(R.id.document_name);
-        TextView documentPath=(TextView)convertView.findViewById(R.id.document_path);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.document_list, null);
+        ImageView documentImage = (ImageView) convertView.findViewById(R.id.document_image);
+        TextView documentName = (TextView) convertView.findViewById(R.id.document_name);
+        TextView documentPath = (TextView) convertView.findViewById(R.id.document_path);
         documentImage.setImageResource(R.drawable.document);
         documentName.setText(files[position].getName());
         documentPath.setText(files[position].getParent());

@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.filemanager.tools.FileTools;
+
 import java.io.File;
 
 public class AllFilesListAdapter extends BaseAdapter {
@@ -43,7 +45,25 @@ public class AllFilesListAdapter extends BaseAdapter {
         if (files[position].isDirectory()) {
             itemImage.setImageResource(R.drawable.folder);
         } else if (files[position].isFile()) {
-            itemImage.setImageResource(R.drawable.file);
+            //判断文件类型,根据不同的类型设置不同的图片
+            int fileType = FileTools.getFileType(files[position]);
+            switch (fileType) {
+                case FileTools.MUSIC:
+                    itemImage.setImageResource(R.drawable.list_music);
+                    break;
+                case FileTools.VIDEO:
+                    itemImage.setImageResource(R.drawable.list_video);
+                    break;
+                case FileTools.DOCUMENT:
+                    itemImage.setImageResource(R.drawable.list_document);
+                    break;
+                case FileTools.IMAGE:
+                    itemImage.setImageResource(R.drawable.list_image);
+                    break;
+                default:
+                    itemImage.setImageResource(R.drawable.list_unknown_file);
+                    break;
+            }
         }
         itemName.setText(files[position].getName());
 

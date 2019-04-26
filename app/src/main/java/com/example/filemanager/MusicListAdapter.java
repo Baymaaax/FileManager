@@ -8,18 +8,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.filemanager.R;
-
 import java.io.File;
 
 public class MusicListAdapter extends BaseAdapter {
     private File[] files;
     private Context mContext;
-    MusicListAdapter(Context mContext,File[] files){
+
+    MusicListAdapter(Context mContext, File[] files) {
         super();
-        this.files=files;
-        this.mContext=mContext;
+        this.files = files;
+        this.mContext = mContext;
     }
+
     @Override
     public int getCount() {
         return files.length;
@@ -38,9 +38,9 @@ public class MusicListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.music_list, null);
-        ImageView musicImage=(ImageView)convertView.findViewById(R.id.music_image);
-        TextView musicName=(TextView)convertView.findViewById(R.id.music_name);
-        TextView musicPath=(TextView)convertView.findViewById(R.id.music_path);
+        ImageView musicImage = (ImageView) convertView.findViewById(R.id.music_image);
+        TextView musicName = (TextView) convertView.findViewById(R.id.music_name);
+        TextView musicPath = (TextView) convertView.findViewById(R.id.music_path);
         musicImage.setImageResource(R.drawable.music_image);
         musicName.setText(files[position].getName());
         musicPath.setText(files[position].getParent());

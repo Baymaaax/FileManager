@@ -8,25 +8,23 @@ import java.io.FilenameFilter;
 public class FilterByType implements FilenameFilter {
     private String[] Suffix;
 
-
-
-//过滤器
+    //过滤器构造方法
     FilterByType(int type) {
         switch (type) {
-            case FileTpye.MUSIC:
-                Suffix = FileTpye.musicSuffix;
+            case FileTools.MUSIC:
+                Suffix = FileTools.musicSuffix;
                 break;
-            case FileTpye.VIDEO:
-                Suffix = FileTpye.videoSuffix;
+            case FileTools.VIDEO:
+                Suffix = FileTools.videoSuffix;
                 break;
-            case FileTpye.DOCUMENT:
-                Suffix = FileTpye.documentSuffix;
+            case FileTools.DOCUMENT:
+                Suffix = FileTools.documentSuffix;
                 break;
-            case FileTpye.IMAGE:
-                Suffix = FileTpye.imageSuffix;
+            case FileTools.IMAGE:
+                Suffix = FileTools.imageSuffix;
                 break;
             default:
-                Log.e("fliter ","未知的类型");
+                Log.e("fliter ", "未知的类型");
                 break;
         }
 
@@ -34,11 +32,11 @@ public class FilterByType implements FilenameFilter {
 
     @Override
     public boolean accept(File dir, String name) {
-            for (String str : Suffix) {
-                if (name.endsWith(str)) {
-                    return true;
-                }
+        for (String str : Suffix) {
+            if (name.endsWith(str)) {
+                return true;
             }
+        }
         return false;
     }
 }

@@ -1,8 +1,6 @@
 package com.example.filemanager;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +40,10 @@ public class ImageGridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.image_grid, null);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
-//        Bitmap bitmap= BitmapFactory.decodeFile(files[position].getAbsolutePath());
-//        image.setImageBitmap(bitmap);
+        //使用Glide框架加载图片
         Glide.with(mContext)
                 .load(files[position].getAbsolutePath())
-                .override(500,500)
+                .override(500, 500)
                 .fitCenter()
                 .into(image);
 
