@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AllFilesActivity">
+
     <RelativeLayout
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
@@ -33,6 +34,7 @@
             android:paddingLeft="12dp"
             android:paddingTop="13dp"
             android:src="@drawable/home_button" />
+
         <ImageButton
             android:id="@+id/go_back_button"
             android:layout_width="wrap_content"
@@ -40,10 +42,11 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/home_button_all_files"
             android:background="@color/transparent"
-            android:src="@drawable/go_back_button"
+            android:paddingLeft="10dp"
             android:paddingTop="13dp"
-            android:paddingLeft="10dp"/>
+            android:src="@drawable/go_back_button" />
     </RelativeLayout>
+
     <ListView
         android:id="@+id/all_files_list"
         android:layout_width="match_parent"

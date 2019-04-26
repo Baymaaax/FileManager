@@ -33,11 +33,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@color/transparent"
-            android:src="@drawable/info"
-            android:paddingRight="17dp"
             android:paddingTop="25dp"
+            android:paddingRight="17dp"
+            android:src="@drawable/info"
 
-             />
+            />
     </RelativeLayout>
     <!--底部手机空间信息以及垃圾清理按钮-->
     <RelativeLayout
@@ -46,12 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/light_blue"
-        android:paddingLeft="10dp"
-        android:paddingRight="15dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         android:gravity="center_vertical"
-        >
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp">
         <!--手机空间信息-->
         <LinearLayout
             android:layout_width="wrap_content"
@@ -71,10 +70,10 @@
         </LinearLayout>
         <!--cleaner-->
         <ImageButton
-            android:layout_alignParentRight="true"
             android:id="@+id/cleaner_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:background="@color/transparent"
             android:src="@drawable/cleaner" />

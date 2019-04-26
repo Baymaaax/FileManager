@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VideoActivity">
+
     <RelativeLayout
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
@@ -34,12 +35,13 @@
             android:paddingTop="13dp"
             android:src="@drawable/home_button" />
     </RelativeLayout>
+
     <GridView
         android:id="@+id/video_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="3"
-        android:layout_below="@id/title_bar">
+        android:layout_below="@id/title_bar"
+        android:numColumns="3">
 
     </GridView>
 

@@ -4,24 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
-    >
+    android:orientation="vertical"
+    tools:context=".SplashScreen">
 
     <ImageView
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:src="@drawable/file_manager_logo"
+        android:layout_height="wrap_content"
         android:paddingLeft="40dp"
-        android:paddingRight="40dp"
         android:paddingTop="70dp"
-         />
+        android:paddingRight="40dp"
+        android:src="@drawable/file_manager_logo" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/folder_logo_splash"
         android:paddingTop="20dp"
-        />
+        android:src="@drawable/folder_logo_splash" />
 
 </LinearLayout>

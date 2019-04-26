@@ -27,9 +27,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:textColor="@color/light_gray"
         android:layout_centerVertical="true"
         android:paddingRight="15dp"
+        android:textColor="@color/light_gray"
         android:textSize="16dp" />
 
 

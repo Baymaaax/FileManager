@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DocumentActivity">
+
     <RelativeLayout
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
@@ -34,6 +35,7 @@
             android:paddingTop="13dp"
             android:src="@drawable/home_button" />
     </RelativeLayout>
+
     <ListView
         android:id="@+id/document_list"
         android:layout_width="match_parent"
