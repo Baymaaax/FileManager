@@ -1,5 +1,7 @@
 package com.example.filemanager.tools;
 
+import android.util.Log;
+
 import java.io.File;
 
 //FileDeleter类封装了与删除有关的静态方法，可通过类名直接调用
@@ -13,17 +15,23 @@ public class FileDeleter {
     public static boolean deleteAll(File file) {
         boolean isDeleted = false;
         if (file.isFile()) {
+            Log.i("deleter", "file name:" + file.getName() +
+                    "##path:" + file.getAbsolutePath());
             file.delete();
             isDeleted = true;
         } else {
             File[] files = file.listFiles();
             if (files == null) {
+                Log.i("deleter", "file name:" + file.getName() +
+                        "##path:" + file.getAbsolutePath());
                 file.delete();
                 isDeleted = true;
             } else {
                 for (int i = 0; i < files.length; i++) {
                     deleteAll(files[i]);
                 }
+                Log.i("deleter", "file name:" + file.getName() +
+                        "##path:" + file.getAbsolutePath());
                 file.delete();
                 isDeleted = true;
             }

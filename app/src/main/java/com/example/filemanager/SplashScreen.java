@@ -27,7 +27,7 @@ public class SplashScreen extends Activity {
             }
         };
         Timer timer = new Timer();
-        timer.schedule(delayTask, 2500);
+        timer.schedule(delayTask, 2000);
     }
 
 }

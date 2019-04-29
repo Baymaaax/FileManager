@@ -3,6 +3,7 @@ package com.example.filemanager.tools;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -42,11 +43,12 @@ public class FileTools {
         }
         return totalSize;
     }
+
     //获取File[] 内所有文件总大小
-    public static long getTotalSize(File[] files){
-        long totalSize=0;
-        for(File file:files){
-            totalSize+=getTotalSize(file);
+    public static long getTotalSize(File[] files) {
+        long totalSize = 0;
+        for (File file : files) {
+            totalSize += getTotalSize(file);
         }
         return totalSize;
     }
@@ -94,6 +96,8 @@ public class FileTools {
                 break;
 
         }
+        Log.i("open file", "open:" + file.getName() +
+                "##path:" + file.getAbsolutePath());
 
     }
 
