@@ -33,7 +33,7 @@ public class DocumentActivity extends AppCompatActivity {
     private void documentListInit() {
         documentList = (ListView) findViewById(R.id.document_list);
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-        FileSearcher fileSearcher = new FileSearcher(dir, FileTools.DOCUMENT);
+        final FileSearcher fileSearcher = new FileSearcher(dir, FileTools.DOCUMENT);
         final File[] files = fileSearcher.search();
         final DocumentListAdapter documentListAdapter = new DocumentListAdapter(DocumentActivity.this, files);
         documentList.setAdapter(documentListAdapter);
@@ -56,7 +56,9 @@ public class DocumentActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (FileDeleter.deleteAll(files[position])) {
-                            documentListAdapter.notifyDataSetChanged();
+                            File[] files = fileSearcher.search();
+                            DocumentListAdapter newAdapter=new DocumentListAdapter(DocumentActivity.this,files);
+                            documentList.setAdapter(newAdapter);
                             Toast.makeText(DocumentActivity.this, "已删除", Toast.LENGTH_SHORT).show();
                         }
 

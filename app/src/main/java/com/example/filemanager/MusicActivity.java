@@ -36,7 +36,7 @@ public class MusicActivity extends AppCompatActivity {
     private void musicListInit() {
         musicList = (ListView) findViewById(R.id.music_list);
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-        FileSearcher fileSearcher = new FileSearcher(dir, FileTools.MUSIC);
+        final FileSearcher fileSearcher = new FileSearcher(dir, FileTools.MUSIC);
         final File[] files = fileSearcher.search();
         final MusicListAdapter musicListAdapter = new MusicListAdapter(MusicActivity.this, files);
         musicList.setAdapter(musicListAdapter);
@@ -58,7 +58,9 @@ public class MusicActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (FileDeleter.deleteAll(files[position])) {
-                            musicListAdapter.notifyDataSetChanged();
+                            File[] files = fileSearcher.search();
+                            MusicListAdapter newAdapter=new MusicListAdapter(MusicActivity.this,files);
+                            musicList.setAdapter(newAdapter);
                             Toast.makeText(MusicActivity.this, "已删除", Toast.LENGTH_SHORT).show();
                         }
 

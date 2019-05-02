@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.example.filemanager.tools.FileDeleter;
 import com.example.filemanager.tools.FileSearcher;
 import com.example.filemanager.tools.FileTools;
 
@@ -33,7 +35,7 @@ public class VideoActivity extends AppCompatActivity {
     private void videoGridInit() {
         videoGrid = (GridView) findViewById(R.id.video_grid);
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-        FileSearcher fileSearcher = new FileSearcher(dir, FileTools.VIDEO);
+        final FileSearcher fileSearcher = new FileSearcher(dir, FileTools.VIDEO);
         final File[] files = fileSearcher.search();
         final VideoGridAdapter videoGridAdapter = new VideoGridAdapter(VideoActivity.this, files);
         videoGrid.setAdapter(videoGridAdapter);
@@ -53,6 +55,12 @@ public class VideoActivity extends AppCompatActivity {
                 dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if (FileDeleter.deleteAll(files[position])) {
+                            File[] files = fileSearcher.search();
+                            VideoGridAdapter newAdapter=new VideoGridAdapter(VideoActivity.this,files);
+                            videoGrid.setAdapter(newAdapter);
+                            Toast.makeText(VideoActivity.this, "已删除", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });

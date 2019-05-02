@@ -35,7 +35,7 @@ public class ImageActivity extends AppCompatActivity {
     private void imageGridInit() {
         imageGrid = (GridView) findViewById(R.id.image_grid);
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-        FileSearcher fileSearcher = new FileSearcher(dir, FileTools.IMAGE);
+        final FileSearcher fileSearcher = new FileSearcher(dir, FileTools.IMAGE);
         final File[] files = fileSearcher.search();
         final ImageGridAdapter imageGridAdapter = new ImageGridAdapter(ImageActivity.this, files);
         imageGrid.setAdapter(imageGridAdapter);
@@ -57,7 +57,9 @@ public class ImageActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("delete", files[position].getPath());
                         if (FileDeleter.deleteAll(files[position])) {
-                            imageGridAdapter.notifyDataSetChanged();
+                            File[] files = fileSearcher.search();
+                            ImageGridAdapter newAdapter=new ImageGridAdapter(ImageActivity.this,files);
+                            imageGrid.setAdapter(newAdapter);
                             Toast.makeText(ImageActivity.this, "已删除", Toast.LENGTH_SHORT).show();
                         }
                     }
