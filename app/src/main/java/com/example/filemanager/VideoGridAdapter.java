@@ -47,7 +47,6 @@ public class VideoGridAdapter extends BaseAdapter {
                     .override(500, 500)
                     .crossFade()
                     .fitCenter()
-                    .thumbnail(0.5f)
                     .into(videoImage);
             videoName.setText(files[position].getName());
         }

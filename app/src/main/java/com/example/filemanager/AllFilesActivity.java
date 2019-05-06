@@ -109,8 +109,8 @@ public class AllFilesActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         File parentFile = files[position].getParentFile();
                         if (FileDeleter.deleteAll(files[position])) {
-                            files = parentFile.listFiles();
-                            allFilesListAdapter.changeFiles(dirInOrder(files));
+                            files = dirInOrder(parentFile.listFiles());
+                            allFilesListAdapter.changeFiles(files);
                             allFilesListAdapter.notifyDataSetChanged();
                             Toast.makeText(AllFilesActivity.this, "已删除", Toast.LENGTH_SHORT).show();
                         }
