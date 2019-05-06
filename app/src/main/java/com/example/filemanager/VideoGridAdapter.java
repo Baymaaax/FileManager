@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 
 public class VideoGridAdapter extends BaseAdapter {
@@ -36,11 +38,25 @@ public class VideoGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.video_list, null);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.video_griid, null);
         ImageView videoImage = (ImageView) convertView.findViewById(R.id.video_image);
         TextView videoName = (TextView) convertView.findViewById(R.id.video_name);
-        videoImage.setImageResource(R.drawable.video);
-        videoName.setText(files[position].getName());
+        if (files[position] != null) {
+            Glide.with(mContext)
+                    .load(files[position].getAbsolutePath())
+                    .override(500, 500)
+                    .crossFade()
+                    .fitCenter()
+                    .thumbnail(0.5f)
+                    .into(videoImage);
+            videoName.setText(files[position].getName());
+        }
+
+
         return convertView;
+    }
+
+    public void changeFiles(File[] newFiles) {
+        this.files = newFiles;
     }
 }

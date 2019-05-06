@@ -41,9 +41,16 @@ public class MusicListAdapter extends BaseAdapter {
         ImageView musicImage = (ImageView) convertView.findViewById(R.id.music_image);
         TextView musicName = (TextView) convertView.findViewById(R.id.music_name);
         TextView musicPath = (TextView) convertView.findViewById(R.id.music_path);
-        musicImage.setImageResource(R.drawable.music_image);
-        musicName.setText(files[position].getName());
-        musicPath.setText(files[position].getParent());
+        if (files[position] != null) {
+            musicImage.setImageResource(R.drawable.music_image);
+            musicName.setText(files[position].getName());
+            musicPath.setText(files[position].getParent());
+        }
+
         return convertView;
+    }
+
+    public void changeFiles(File[] newFiles) {
+        this.files = newFiles;
     }
 }

@@ -2,11 +2,11 @@ package com.example.filemanager;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -23,6 +23,9 @@ import java.io.File;
 public class MusicActivity extends AppCompatActivity {
     private ImageButton homeButton;
     private ListView musicList;
+    private MusicListAdapter musicListAdapter;
+    private File[] allMusicFiles;
+    private FileSearcher fileSearcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +39,14 @@ public class MusicActivity extends AppCompatActivity {
     private void musicListInit() {
         musicList = (ListView) findViewById(R.id.music_list);
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-        final FileSearcher fileSearcher = new FileSearcher(dir, FileTools.MUSIC);
-        final File[] files = fileSearcher.search();
-        final MusicListAdapter musicListAdapter = new MusicListAdapter(MusicActivity.this, files);
+        fileSearcher = new FileSearcher(dir, FileTools.MUSIC);
+        allMusicFiles = fileSearcher.search();
+        musicListAdapter = new MusicListAdapter(MusicActivity.this, allMusicFiles);
         musicList.setAdapter(musicListAdapter);
         musicList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FileTools.openMusicFile(files[position], MusicActivity.this);
+                FileTools.openMusicFile(allMusicFiles[position], MusicActivity.this);
             }
 
         });
@@ -57,12 +60,13 @@ public class MusicActivity extends AppCompatActivity {
                 dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (FileDeleter.deleteAll(files[position])) {
-                            File[] files = fileSearcher.search();
-                            MusicListAdapter newAdapter=new MusicListAdapter(MusicActivity.this,files);
-                            musicList.setAdapter(newAdapter);
+                        if (FileDeleter.deleteAll(allMusicFiles[position])) {
+                            allMusicFiles = fileSearcher.search();
+                            musicListAdapter.changeFiles(allMusicFiles);
+                            musicListAdapter.notifyDataSetChanged();
                             Toast.makeText(MusicActivity.this, "已删除", Toast.LENGTH_SHORT).show();
                         }
+
 
                     }
                 });
@@ -84,6 +88,8 @@ public class MusicActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MusicActivity.this, MainActivity.class);
+                startActivity(intent);
                 MusicActivity.this.finish();
             }
         });

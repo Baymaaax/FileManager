@@ -69,5 +69,9 @@ public class AllFilesListAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    public void changeFiles(File[] newFiles) {
+        this.files = newFiles;
+    }
 }
 

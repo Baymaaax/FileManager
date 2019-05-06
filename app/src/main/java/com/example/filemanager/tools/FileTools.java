@@ -20,9 +20,9 @@ public class FileTools {
     public final static int ALL_FILES = 4;//所有文件
     //文件后缀名
     public final static String[] musicSuffix = {".mp3", ".wma", ".ogg"};//音频文件后缀名
-    public final static String[] videoSuffix = {".mp4"};//视频文件后缀名
-    public final static String[] documentSuffix = {".txt", ".doc"};//文本文件后缀名
-    public final static String[] imageSuffix = {".jpg", ".png"};//图片文件后缀名
+    public final static String[] videoSuffix = {".mp4", "mkv", "avi", "flv"};//视频文件后缀名
+    public final static String[] documentSuffix = {".txt", ".doc", ".docx"};//文本文件后缀名
+    public final static String[] imageSuffix = {".jpg", ".gif", ".png"};//图片文件后缀名
 
     /*
     获取dir的总大小

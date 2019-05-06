@@ -25,6 +25,8 @@ public class AllFilesActivity extends AppCompatActivity {
     private ListView allFilesList;
     private File dir;
     private Stack parentDir;
+    private AllFilesListAdapter allFilesListAdapter;
+    private File[] files;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +75,9 @@ public class AllFilesActivity extends AppCompatActivity {
     //初始化文件列表
     private void FilesListInit(final File dir) {
 
-        final File[] tempFiles = dir.listFiles();
-        final File[] files = dirInOrder(tempFiles);
-        final AllFilesListAdapter allFilesListAdapter = new AllFilesListAdapter(AllFilesActivity.this, files);
+//        final File[] tempFiles = dir.listFiles();
+        files = dirInOrder(dir.listFiles());
+        allFilesListAdapter = new AllFilesListAdapter(AllFilesActivity.this, files);
         allFilesList.setAdapter(allFilesListAdapter);
         allFilesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             //添加点击事件，如果是文件则弹出
@@ -107,12 +109,11 @@ public class AllFilesActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         File parentFile = files[position].getParentFile();
                         if (FileDeleter.deleteAll(files[position])) {
-                            AllFilesListAdapter adapter = new AllFilesListAdapter(AllFilesActivity.this, dirInOrder(parentFile.listFiles()));
-                            allFilesList.setAdapter(adapter);
+                            files = parentFile.listFiles();
+                            allFilesListAdapter.changeFiles(dirInOrder(files));
                             allFilesListAdapter.notifyDataSetChanged();
                             Toast.makeText(AllFilesActivity.this, "已删除", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {

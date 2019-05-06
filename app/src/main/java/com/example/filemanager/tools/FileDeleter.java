@@ -18,6 +18,7 @@ public class FileDeleter {
             Log.i("deleter", "file name:" + file.getName() +
                     "##path:" + file.getAbsolutePath());
             file.delete();
+            file = null;
             isDeleted = true;
         } else {
             File[] files = file.listFiles();

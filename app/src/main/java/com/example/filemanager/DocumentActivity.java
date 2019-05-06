@@ -1,6 +1,7 @@
 package com.example.filemanager;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,9 @@ import java.io.File;
 public class DocumentActivity extends AppCompatActivity {
     private ImageButton homeButton;
     private ListView documentList;
+    private FileSearcher fileSearcher;
+    private File[] allDocumentfiles;
+    private DocumentListAdapter documentListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +37,15 @@ public class DocumentActivity extends AppCompatActivity {
     private void documentListInit() {
         documentList = (ListView) findViewById(R.id.document_list);
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-        final FileSearcher fileSearcher = new FileSearcher(dir, FileTools.DOCUMENT);
-        final File[] files = fileSearcher.search();
-        final DocumentListAdapter documentListAdapter = new DocumentListAdapter(DocumentActivity.this, files);
+        fileSearcher = new FileSearcher(dir, FileTools.DOCUMENT);
+        allDocumentfiles = fileSearcher.search();
+        documentListAdapter = new DocumentListAdapter(DocumentActivity.this, allDocumentfiles);
         documentList.setAdapter(documentListAdapter);
         documentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //打开文档类型的文件
-                FileTools.openDocumentFile(files[position], DocumentActivity.this);
+                FileTools.openDocumentFile(allDocumentfiles[position], DocumentActivity.this);
             }
         });
         //长按点击事件，删除文件
@@ -55,10 +59,10 @@ public class DocumentActivity extends AppCompatActivity {
                 dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (FileDeleter.deleteAll(files[position])) {
-                            File[] files = fileSearcher.search();
-                            DocumentListAdapter newAdapter=new DocumentListAdapter(DocumentActivity.this,files);
-                            documentList.setAdapter(newAdapter);
+                        if (FileDeleter.deleteAll(allDocumentfiles[position])) {
+                            allDocumentfiles = fileSearcher.search();
+                            documentListAdapter.changeFiles(allDocumentfiles);
+                            documentListAdapter.notifyDataSetChanged();
                             Toast.makeText(DocumentActivity.this, "已删除", Toast.LENGTH_SHORT).show();
                         }
 
@@ -82,6 +86,8 @@ public class DocumentActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(DocumentActivity.this, MainActivity.class);
+                startActivity(intent);
                 DocumentActivity.this.finish();
             }
         });

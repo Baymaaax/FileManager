@@ -2,6 +2,7 @@ package com.example.filemanager;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,9 @@ import java.io.File;
 public class VideoActivity extends AppCompatActivity {
     private ImageButton homeButton;
     private GridView videoGrid;
+    private FileSearcher fileSearcher;
+    private File[] allVideoFiles;
+    private VideoGridAdapter videoGridAdapter;
 
 
     @Override
@@ -35,14 +39,14 @@ public class VideoActivity extends AppCompatActivity {
     private void videoGridInit() {
         videoGrid = (GridView) findViewById(R.id.video_grid);
         File dir = new File(Environment.getExternalStorageDirectory().toString());
-        final FileSearcher fileSearcher = new FileSearcher(dir, FileTools.VIDEO);
-        final File[] files = fileSearcher.search();
-        final VideoGridAdapter videoGridAdapter = new VideoGridAdapter(VideoActivity.this, files);
+        fileSearcher = new FileSearcher(dir, FileTools.VIDEO);
+        allVideoFiles = fileSearcher.search();
+        videoGridAdapter = new VideoGridAdapter(VideoActivity.this, allVideoFiles);
         videoGrid.setAdapter(videoGridAdapter);
         videoGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FileTools.openVideoFile(files[position], VideoActivity.this);
+                FileTools.openVideoFile(allVideoFiles[position], VideoActivity.this);
             }
         });
         videoGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -55,10 +59,10 @@ public class VideoActivity extends AppCompatActivity {
                 dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (FileDeleter.deleteAll(files[position])) {
-                            File[] files = fileSearcher.search();
-                            VideoGridAdapter newAdapter=new VideoGridAdapter(VideoActivity.this,files);
-                            videoGrid.setAdapter(newAdapter);
+                        if (FileDeleter.deleteAll(allVideoFiles[position])) {
+                            allVideoFiles = fileSearcher.search();
+                            videoGridAdapter.changeFiles(allVideoFiles);
+                            videoGridAdapter.notifyDataSetChanged();
                             Toast.makeText(VideoActivity.this, "已删除", Toast.LENGTH_SHORT).show();
                         }
 
@@ -83,6 +87,8 @@ public class VideoActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(VideoActivity.this, MainActivity.class);
+                startActivity(intent);
                 VideoActivity.this.finish();
             }
         });

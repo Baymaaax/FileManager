@@ -40,13 +40,19 @@ public class ImageGridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.image_grid, null);
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
-        //使用Glide框架加载图片
-        Glide.with(mContext)
-                .load(files[position].getAbsolutePath())
-                .override(500, 500)
-                .fitCenter()
-                .into(image);
-
+        if (files[position] != null) {
+            //使用Glide框架加载图片
+            Glide.with(mContext)
+                    .load(files[position].getAbsolutePath())
+                    .override(330, 330)
+                    .crossFade()
+                    .fitCenter()
+                    .into(image);
+        }
         return convertView;
+    }
+
+    public void changeFiles(File[] newFiles) {
+        this.files = newFiles;
     }
 }

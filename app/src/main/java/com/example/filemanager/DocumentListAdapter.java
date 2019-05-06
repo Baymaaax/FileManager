@@ -40,9 +40,15 @@ public class DocumentListAdapter extends BaseAdapter {
         ImageView documentImage = (ImageView) convertView.findViewById(R.id.document_image);
         TextView documentName = (TextView) convertView.findViewById(R.id.document_name);
         TextView documentPath = (TextView) convertView.findViewById(R.id.document_path);
-        documentImage.setImageResource(R.drawable.document);
-        documentName.setText(files[position].getName());
-        documentPath.setText(files[position].getParent());
+        if (files[position] != null) {
+            documentImage.setImageResource(R.drawable.document);
+            documentName.setText(files[position].getName());
+            documentPath.setText(files[position].getParent());
+        }
         return convertView;
+    }
+
+    public void changeFiles(File[] newFiles) {
+        this.files = newFiles;
     }
 }

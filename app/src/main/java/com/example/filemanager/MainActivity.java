@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         File dir = new File(Environment.getExternalStorageDirectory().toString());
         float freeSpace = UnitConversion.getGB(dir.getFreeSpace());
         float totalSpace = UnitConversion.getGB(dir.getTotalSpace());
-        float usedSpace = totalSpace - freeSpace;
+        float usedSpace = (float) (Math.round((totalSpace - freeSpace) * 10)) / 10;
         spaceMessage = (TextView) findViewById(R.id.space_message);
         spaceMessage.setText("总 共：" + totalSpace + "GB" + "\n" +
                 "已 用：" + usedSpace + "GB" + "\n" +
@@ -124,21 +124,21 @@ public class MainActivity extends AppCompatActivity {
         String videoSize;
         String documentSize;
         String imageSize;
-        String allFileSize="";
+        String allFileSize = "";
         File rootDir = new File(Environment.getExternalStorageDirectory().toString());
-        FileSearcher musicSearcher=new FileSearcher(rootDir,FileTools.MUSIC);
-        FileSearcher videoSearcher=new FileSearcher(rootDir,FileTools.VIDEO);
-        FileSearcher documentSearcher=new FileSearcher(rootDir,FileTools.DOCUMENT);
-        FileSearcher imageSearcher=new FileSearcher(rootDir,FileTools.IMAGE);
-        musicSize=UnitConversion.getMB(FileTools.getTotalSize(musicSearcher.search()))+"MB";
-        videoSize=UnitConversion.getMB(FileTools.getTotalSize(videoSearcher.search()))+"MB";
-        documentSize=UnitConversion.getMB(FileTools.getTotalSize(documentSearcher.search()))+"MB";
-        imageSize=UnitConversion.getMB(FileTools.getTotalSize(imageSearcher.search()))+"MB";
-        String[] size={musicSize,videoSize,documentSize,imageSize,allFileSize};
+        FileSearcher musicSearcher = new FileSearcher(rootDir, FileTools.MUSIC);
+        FileSearcher videoSearcher = new FileSearcher(rootDir, FileTools.VIDEO);
+        FileSearcher documentSearcher = new FileSearcher(rootDir, FileTools.DOCUMENT);
+        FileSearcher imageSearcher = new FileSearcher(rootDir, FileTools.IMAGE);
+        musicSize = UnitConversion.getMB(FileTools.getTotalSize(musicSearcher.search())) + "MB";
+        videoSize = UnitConversion.getMB(FileTools.getTotalSize(videoSearcher.search())) + "MB";
+        documentSize = UnitConversion.getMB(FileTools.getTotalSize(documentSearcher.search())) + "MB";
+        imageSize = UnitConversion.getMB(FileTools.getTotalSize(imageSearcher.search())) + "MB";
+        String[] size = {musicSize, videoSize, documentSize, imageSize, allFileSize};
 
         categoryList = (ListView) findViewById(R.id.category_list);
         final CategoryListAdapter categoryListAdapter = new CategoryListAdapter(MainActivity.this
-                , categoryPicture, categoryName,size);
+                , categoryPicture, categoryName, size);
         categoryList.setAdapter(categoryListAdapter);
         categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
