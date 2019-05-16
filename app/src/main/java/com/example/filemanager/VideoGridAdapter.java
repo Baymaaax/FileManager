@@ -42,6 +42,7 @@ public class VideoGridAdapter extends BaseAdapter {
         ImageView videoImage = (ImageView) convertView.findViewById(R.id.video_image);
         TextView videoName = (TextView) convertView.findViewById(R.id.video_name);
         if (files[position] != null) {
+            videoImage.setImageResource(R.drawable.video);
             Glide.with(mContext)
                     .load(files[position].getAbsolutePath())
                     .override(500, 500)
