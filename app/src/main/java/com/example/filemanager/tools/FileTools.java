@@ -18,6 +18,7 @@ public class FileTools {
     public final static int DOCUMENT = 2;//文档
     public final static int IMAGE = 3;//图片
     public final static int ALL_FILES = 4;//所有文件
+
     //文件后缀名
     public final static String[] musicSuffix = {".mp3", ".wma", ".ogg"};//音频文件后缀名
     public final static String[] videoSuffix = {".mp4", "mkv", "avi", "flv"};//视频文件后缀名
@@ -48,7 +49,7 @@ public class FileTools {
     public static long getTotalSize(File[] files) {
         long totalSize = 0;
         for (File file : files) {
-            totalSize += getTotalSize(file);
+            totalSize += file.length();
         }
         return totalSize;
     }

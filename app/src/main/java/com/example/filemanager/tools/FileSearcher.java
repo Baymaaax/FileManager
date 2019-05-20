@@ -38,7 +38,7 @@ public class FileSearcher {
         File[] targeFiles = dir.listFiles(filter);
         if (!(targeFiles == null))
             for (File f : targeFiles) {
-                array.add(f);
+                    array.add(f);
             }
         for (File file : allFiles) {
             if (file.isDirectory()) {

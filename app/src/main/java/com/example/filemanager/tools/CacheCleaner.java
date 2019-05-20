@@ -15,7 +15,8 @@ public class CacheCleaner {
     //public 构造方法，可在tools包外使用。
     public CacheCleaner() {
         cleanedCacheSize = 0;
-        dataPath = Environment.getExternalStorageDirectory().toString() + "/Android/data";
+        dataPath = Environment.getExternalStorageDirectory()
+                .toString() + "/Android/data";
     }
 
     //获取入口/data的路径

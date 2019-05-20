@@ -14,20 +14,22 @@ public class FileDeleter {
      */
     public static boolean deleteAll(File file) {
         boolean isDeleted = false;
+//        如果是文件则直接删除
         if (file.isFile()) {
             Log.i("deleter", "file name:" + file.getName() +
                     "##path:" + file.getAbsolutePath());
             file.delete();
-            file = null;
             isDeleted = true;
         } else {
             File[] files = file.listFiles();
+//            空目录直接删除
             if (files == null) {
                 Log.i("deleter", "file name:" + file.getName() +
                         "##path:" + file.getAbsolutePath());
                 file.delete();
                 isDeleted = true;
             } else {
+//                非空目录递归调用deleteAll()方法
                 for (int i = 0; i < files.length; i++) {
                     deleteAll(files[i]);
                 }

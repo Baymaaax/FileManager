@@ -35,7 +35,6 @@ public class AllFilesActivity extends AppCompatActivity {
         homeButtonInit();
         //dir初始化为外部存储根目录
         dir = new File(Environment.getExternalStorageDirectory().toString());
-
         allFilesList = (ListView) findViewById(R.id.all_files_list);
         //初始化栈存放父目录地址
         parentDir = new Stack();
@@ -74,8 +73,6 @@ public class AllFilesActivity extends AppCompatActivity {
 
     //初始化文件列表
     private void FilesListInit(final File dir) {
-
-//        final File[] tempFiles = dir.listFiles();
         files = dirInOrder(dir.listFiles());
         allFilesListAdapter = new AllFilesListAdapter(AllFilesActivity.this, files);
         allFilesList.setAdapter(allFilesListAdapter);
