@@ -6,22 +6,33 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 public class FilterByType implements FilenameFilter {
-    private String[] Suffix;
+    private String[] suffix;
+    private int type;
 
     //过滤器构造方法
     FilterByType(int type) {
+        this.type = type;
         switch (type) {
             case FileTools.MUSIC:
-                Suffix = FileTools.musicSuffix;
+                suffix = FileTools.musicSuffix;
                 break;
             case FileTools.VIDEO:
-                Suffix = FileTools.videoSuffix;
+                suffix = FileTools.videoSuffix;
                 break;
             case FileTools.DOCUMENT:
-                Suffix = FileTools.documentSuffix;
+                suffix = FileTools.documentSuffix;
                 break;
             case FileTools.IMAGE:
-                Suffix = FileTools.imageSuffix;
+                suffix = FileTools.imageSuffix;
+                break;
+            case FileTools.CACHE_DIR:
+                suffix = FileTools.cacheDirName;
+                break;
+            case FileTools.TEMP_DIR:
+                suffix = FileTools.tempDirName;
+                break;
+            case FileTools.LOG_FILES:
+                suffix = FileTools.logSuffix;
                 break;
             default:
                 Log.e("fliter ", "未知的类型");
@@ -32,11 +43,23 @@ public class FilterByType implements FilenameFilter {
 
     @Override
     public boolean accept(File dir, String name) {
-        for (String str : Suffix) {
-            if (name.endsWith(str)) {
-                return true;
+        boolean isAccepted = false;
+        if (type == FileTools.CACHE_DIR || type == FileTools.TEMP_DIR) {
+            File file = new File(dir.getPath() + File.separator + name);
+            if (file.isDirectory()) {
+                for (String str : suffix) {
+                    if (name.endsWith(str)) {
+                        isAccepted = true;
+                    }
+                }
+            }
+        } else {
+            for (String str : suffix) {
+                if (name.endsWith(str)) {
+                    isAccepted = true;
+                }
             }
         }
-        return false;
+        return isAccepted;
     }
 }

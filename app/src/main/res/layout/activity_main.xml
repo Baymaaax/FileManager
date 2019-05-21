@@ -68,7 +68,7 @@
 
 
         </LinearLayout>
-        <!--cleaner-->
+
         <ImageButton
             android:id="@+id/cleaner_button"
             android:layout_width="wrap_content"

@@ -51,7 +51,7 @@ public class CacheCleaner {
         }
         while (!cacheStack.isEmpty()) {
             File cacheDir = (File) cacheStack.pop();
-            Log.i("/cleaner", cacheDir.getAbsolutePath());
+            Log.i("/cachecleaner", cacheDir.getAbsolutePath());
             cleanedCacheSize += FileTools.getTotalSize(cacheDir);
             FileDeleter.deleteInner(cacheDir);
         }

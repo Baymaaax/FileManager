@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.filemanager.tools.CacheCleaner;
+import com.example.filemanager.tools.Cleaner;
 import com.example.filemanager.tools.FileSearcher;
 import com.example.filemanager.tools.FileTools;
 import com.example.filemanager.tools.UnitConversion;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         cacheCleanerInit();
         spaceMessageInit();
         infoButtonInit();
+        Cleaner.cleanTemp();
+        Cleaner.cleanLog();
 
     }
 
@@ -97,13 +100,12 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //new cleaner对象，并运行clean方法。
-                        CacheCleaner cleaner = new CacheCleaner();
-                        cleaner.clean();
                         //获取已清除缓存大小，换算成MB
-                        float cachesize = UnitConversion.getMB(cleaner.getCleanedCacheSize());
+                        float cachesize = UnitConversion.getMB(Cleaner.cleanCache());
                         Toast.makeText(MainActivity.this,
                                 "已清除" + cachesize + "MB", Toast.LENGTH_SHORT).show();
+
+
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
