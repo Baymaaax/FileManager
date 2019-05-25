@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.document_folder, R.drawable.image_folder, R.drawable.all_files_folder};
     private final static String[] categoryName = {"音乐", "视频", "文档", "图片", "全部文件"};
     private TextView spaceMessage;
-    private ImageButton cleanerButton;
+    private ImageButton suggestionButton;
     private ListView categoryList;
     private ImageButton infoButton;
 
@@ -40,11 +40,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         requestAllPower();
         categoryListInit();
-        cacheCleanerInit();
+        suggestionInit();
         spaceMessageInit();
         infoButtonInit();
-        Cleaner.cleanTemp();
-        Cleaner.cleanLog();
+
+    }
+
+    private void suggestionInit() {
+        suggestionButton=(ImageButton) findViewById(R.id.suggestion_button);
+        suggestionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this,Suggestion.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -87,38 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 "剩 余：" + freeSpace + "GB");
     }
 
-    //缓存清理按键初始化，添加点击事件，弹出dialog询问是否清除缓存。
-    private void cacheCleanerInit() {
-        cleanerButton = (ImageButton) findViewById(R.id.cleaner_button);
-        cleanerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setTitle("一键清理");
-                dialog.setMessage("是否要删除所有缓存文件");
-                dialog.setCancelable(false);
-                dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //获取已清除缓存大小，换算成MB
-                        float cachesize = UnitConversion.getMB(Cleaner.cleanCache());
-                        Toast.makeText(MainActivity.this,
-                                "已清除" + cachesize + "MB", Toast.LENGTH_SHORT).show();
 
-
-                    }
-                });
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-            }
-
-        });
-    }
 
     //初始化目录列表，包含音乐、视频、文档、图片、全部文件类别。并添加点击事件跳转到各自Activity
     private void categoryListInit() {

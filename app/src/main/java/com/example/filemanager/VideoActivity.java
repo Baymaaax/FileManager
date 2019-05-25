@@ -46,7 +46,7 @@ public class VideoActivity extends AppCompatActivity {
         videoGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FileTools.openVideoFile(allVideoFiles[position], VideoActivity.this);
+                FileTools.openFile(allVideoFiles[position], VideoActivity.this);
             }
         });
         videoGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

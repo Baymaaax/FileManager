@@ -45,7 +45,7 @@ public class DocumentActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //打开文档类型的文件
-                FileTools.openDocumentFile(allDocumentfiles[position], DocumentActivity.this);
+                FileTools.openFile(allDocumentfiles[position], DocumentActivity.this);
             }
         });
         //长按点击事件，删除文件

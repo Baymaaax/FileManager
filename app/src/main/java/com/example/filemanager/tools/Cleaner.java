@@ -10,6 +10,27 @@ public class Cleaner {
             .toString() + "/Android/data";
     private static final String rootPath = Environment.getExternalStorageDirectory()
             .toString();
+    public static long getCacheSize(){
+        long cacheSize;
+        FileSearcher cacheSearcher = new FileSearcher(new File(dataPath), FileTools.CACHE_DIR);
+        File[] cacheDirs = cacheSearcher.search();
+        cacheSize = FileTools.getTotalSize(cacheDirs);
+        return cacheSize;
+    }
+    public static long getTempSize(){
+        long tempSize ;
+        FileSearcher tempSearcher = new FileSearcher(new File(rootPath), FileTools.TEMP_DIR);
+        File[] tempDirs = tempSearcher.search();
+        tempSize = FileTools.getTotalSize(tempDirs);
+        return tempSize;
+    }
+    public static long getLogSize(){
+        long logSize;
+        FileSearcher logSearcher=new FileSearcher(new File(rootPath),FileTools.LOG_FILES);
+        File[] logFiles=logSearcher.search();
+        logSize=FileTools.getTotalSize(logFiles);
+        return logSize;
+    }
 
     public static long cleanCache() {
         long cleanedCacheSize = 0;
@@ -30,7 +51,7 @@ public class Cleaner {
         cleanedTempSize = FileTools.getTotalSize(tempDirs);
         for (File dir : tempDirs) {
             Log.i("CleanTemp", "path:" + dir.getPath());
-//            FileDeleter.deleteInner(dir);
+            FileDeleter.deleteInner(dir);
         }
         Log.i("CleanTemp", "Total Size" +cleanedTempSize);
         return cleanedTempSize;

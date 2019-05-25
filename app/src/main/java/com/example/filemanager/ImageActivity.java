@@ -46,7 +46,7 @@ public class ImageActivity extends AppCompatActivity {
         imageGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FileTools.openImageFile(allImageFile[position], ImageActivity.this);
+                FileTools.openFile(allImageFile[position], ImageActivity.this);
             }
         });
         imageGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

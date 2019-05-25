@@ -60,6 +60,9 @@ public class AllFilesListAdapter extends BaseAdapter {
                 case FileTools.IMAGE:
                     itemImage.setImageResource(R.drawable.list_image);
                     break;
+                case FileTools.APK:
+                    itemImage.setImageResource(R.drawable.list_apk);
+                    break;
                 default:
                     itemImage.setImageResource(R.drawable.list_unknown_file);
                     break;

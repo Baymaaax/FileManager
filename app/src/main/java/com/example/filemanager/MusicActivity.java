@@ -46,7 +46,7 @@ public class MusicActivity extends AppCompatActivity {
         musicList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FileTools.openMusicFile(allMusicFiles[position], MusicActivity.this);
+                FileTools.openFile(allMusicFiles[position], MusicActivity.this);
             }
 
         });

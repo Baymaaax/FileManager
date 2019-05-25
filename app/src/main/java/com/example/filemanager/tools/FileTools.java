@@ -17,11 +17,12 @@ public class FileTools {
     public final static int VIDEO = 1;//视频
     public final static int DOCUMENT = 2;//文档
     public final static int IMAGE = 3;//图片
-    public final static int APK=4;//安装包
-    public final static int ALL_FILES = 5;//所有文件
+    public final static int ALL_FILES = 4;//所有文件
+    public final static int APK=5;//安装包
     public final static int CACHE_DIR = 6;//缓存文件夹
     public final static int TEMP_DIR=7;//临时文件夹
     public final static int LOG_FILES=8;//日志文件
+    public final static int LARGE_FILES =9;//所有类型的文件
 
     //文件后缀名
     public final static String[] musicSuffix = {".mp3", ".wma", ".ogg"};//音频文件后缀名
@@ -32,6 +33,7 @@ public class FileTools {
     public final static String[] cacheDirName={"cache",".cache"};//缓存文件夹常用名
     public final static String[] tempDirName={"tmp"};//临时文件夹常用名
     public final static String[] logSuffix={".log","log.txt","Log.txt","log1.txt"};
+    public final static String[] largeFilesSuffix ={""};
 
 
     /*
@@ -81,6 +83,10 @@ public class FileTools {
             if (file.getName().endsWith(suffix))
                 return FileTools.IMAGE;
         }
+        for (String suffix:FileTools.apkSuffix){
+            if(file.getName().endsWith(suffix))
+                return FileTools.APK;
+        }
         //未知类型返回-1
         return -1;
     }
@@ -101,8 +107,10 @@ public class FileTools {
             case IMAGE:
                 openImageFile(file, mContext);
                 break;
+            case APK:
+                openApkFile(file,mContext);
             default:
-                Toast.makeText(mContext, "未知的文件类型", Toast.LENGTH_SHORT);
+                Toast.makeText(mContext, "未知的文件类型", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -136,6 +144,13 @@ public class FileTools {
     public static void openMusicFile(File file, Context mContext) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(file), "audio/*");
+        mContext.startActivity(intent);
+    }
+
+    //打开apk文件
+    public static void openApkFile(File file,Context mContext){
+        Intent intent =new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file),"application/vnd.android.package-archive");
         mContext.startActivity(intent);
     }
 

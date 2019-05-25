@@ -4,14 +4,18 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Calendar;
 
 public class FilterByType implements FilenameFilter {
     private String[] suffix;
     private int type;
+    private Calendar limitDate;
 
     //过滤器构造方法
     FilterByType(int type) {
         this.type = type;
+        limitDate=Calendar.getInstance();
+        limitDate.add(Calendar.HOUR,-3);
         switch (type) {
             case FileTools.MUSIC:
                 suffix = FileTools.musicSuffix;
@@ -34,6 +38,12 @@ public class FilterByType implements FilenameFilter {
             case FileTools.LOG_FILES:
                 suffix = FileTools.logSuffix;
                 break;
+            case FileTools.LARGE_FILES:
+                suffix = FileTools.largeFilesSuffix;
+                break;
+            case FileTools.APK:
+                suffix=FileTools.apkSuffix;
+                break;
             default:
                 Log.e("fliter ", "未知的类型");
                 break;
@@ -44,22 +54,59 @@ public class FilterByType implements FilenameFilter {
     @Override
     public boolean accept(File dir, String name) {
         boolean isAccepted = false;
-        if (type == FileTools.CACHE_DIR || type == FileTools.TEMP_DIR) {
-            File file = new File(dir.getPath() + File.separator + name);
-            if (file.isDirectory()) {
-                for (String str : suffix) {
-                    if (name.endsWith(str)) {
-                        isAccepted = true;
+        File file = new File(dir.getPath() + File.separator + name);
+        Log.i("dsp", file.getPath());
+        switch (type) {
+            case FileTools.CACHE_DIR:
+            case FileTools.TEMP_DIR: {
+                if (file.isDirectory()) {
+                    for (String str : suffix) {
+                        if (name.endsWith(str)) {
+                            isAccepted = true;
+                        }
                     }
                 }
             }
-        } else {
-            for (String str : suffix) {
-                if (name.endsWith(str)) {
+            break;
+            case FileTools.LARGE_FILES: {
+                if (file.isFile() && file.length() > (30 * 1024 * 1024)) {
+                    Calendar lastModifideDate=Calendar.getInstance();
+                    lastModifideDate.setTimeInMillis(file.lastModified());
+                    if(lastModifideDate.before(limitDate))
                     isAccepted = true;
                 }
+
             }
+            break;
+            default: {
+                if (file.isFile()) {
+                    for (String str : suffix) {
+                        if (name.endsWith(str)) {
+                            isAccepted = true;
+                        }
+                    }
+                }
+            }
+            break;
         }
+//        if (type == FileTools.CACHE_DIR || type == FileTools.TEMP_DIR) {
+//            if (file.isDirectory()) {
+//                for (String str : suffix) {
+//                    if (name.endsWith(str)) {
+//                        isAccepted = true;
+//                    }
+//                }
+//            }
+//        } else {
+//            if(file.isFile()){
+//                for (String str : suffix) {
+//                    if (name.endsWith(str)) {
+//                        isAccepted = true;
+//                    }
+//                }
+//            }
+//
+//        }
         return isAccepted;
     }
 }

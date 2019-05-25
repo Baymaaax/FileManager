@@ -1,5 +1,7 @@
 package com.example.filemanager.tools;
 
+import android.util.Log;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ public class FileSearcher {
         File[] files = new File[fileArrayList.size()];
         for (int i = 0; i < fileArrayList.size(); i++) {
             files[i] = fileArrayList.get(i);
+            Log.i("search", files[i].getName());
         }
         return files;
     }
