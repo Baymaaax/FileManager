@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.filemanager.tools.Cleaner;
 import com.example.filemanager.tools.FileDeleter;
+import com.example.filemanager.tools.FileTools;
 import com.example.filemanager.tools.UnitConversion;
 
 public class Suggestion extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class Suggestion extends AppCompatActivity {
     private TextView logSize;
     private ImageButton apksButton;
     private ImageButton largeFilesButton;
+    private TextView result;
 
 
     @Override
@@ -31,29 +33,63 @@ public class Suggestion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
         homeButtonInit();
+        resultInit();
         cleanerInit();
         installedApkInit();
         largeFilesInit();
 
     }
 
+    private void resultInit() {
+        result = findViewById(R.id.result);
+        Intent intent = getIntent();
+        long usedSpace = intent.getLongExtra("usedSpace", 0);
+        long totalSpace = intent.getLongExtra("totalSpace", 0);
+        int largestType = intent.getIntExtra("largestType", -1);
+        String largestTypeName;
+        switch (largestType) {
+            case FileTools.MUSIC:
+                largestTypeName = "音乐类型";
+                break;
+            case FileTools.VIDEO:
+                largestTypeName = "视频类型";
+                break;
+            case FileTools.IMAGE:
+                largestTypeName = "图片类型";
+                break;
+            case FileTools.DOCUMENT:
+                largestTypeName = "文档类型";
+                break;
+            default:
+                largestTypeName = "未知类型";
+                break;
+        }
+        long largestSize = intent.getLongExtra("largestSize", 0);
+        float usedPercentage =(float) (Math.round(((float) usedSpace/totalSpace)*1000))/10;
+        float largestTypePercentage = (float) (Math.round(((float) largestSize/usedSpace)*1000))/10;
+//        float usedPercentage = (float) (Math.round((float) usedSpace / totalSpace * 1000) / 1000);
+//        float largestTypePercentage = (float) (Math.round((float) largestSize / usedSpace * 1000) / 1000);
+        result.setText("手机存储空间已使用" + usedPercentage + "%" +
+                ",其中" + largestTypeName + "文件占用存储空间最大，占" + largestTypePercentage  + "%");
+    }
+
     private void largeFilesInit() {
-        largeFilesButton=(ImageButton) findViewById(R.id.large_files_button);
+        largeFilesButton = (ImageButton) findViewById(R.id.large_files_button);
         largeFilesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Suggestion.this,LargeFiles.class);
+                Intent intent = new Intent(Suggestion.this, LargeFiles.class);
                 startActivity(intent);
             }
         });
     }
 
     private void installedApkInit() {
-        apksButton=(ImageButton) findViewById(R.id.apks_button);
+        apksButton = (ImageButton) findViewById(R.id.apks_button);
         apksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(Suggestion.this,InstalledApks.class);
+                Intent intent = new Intent(Suggestion.this, InstalledApks.class);
                 startActivity(intent);
             }
         });
@@ -72,7 +108,7 @@ public class Suggestion extends AppCompatActivity {
         cacheCleanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialog=new AlertDialog.Builder(Suggestion.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(Suggestion.this);
                 dialog.setTitle("清除缓存");
                 dialog.setMessage("是否要清理缓存文件");
                 dialog.setCancelable(false);
@@ -100,7 +136,7 @@ public class Suggestion extends AppCompatActivity {
         tempCleanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialog=new AlertDialog.Builder(Suggestion.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(Suggestion.this);
                 dialog.setTitle("清除临时文件");
                 dialog.setMessage("是否要清理临时文件");
                 dialog.setCancelable(false);
@@ -128,7 +164,7 @@ public class Suggestion extends AppCompatActivity {
         logCleanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialog=new AlertDialog.Builder(Suggestion.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(Suggestion.this);
                 dialog.setTitle("清除日志文件");
                 dialog.setMessage("是否要清理日志文件");
                 dialog.setCancelable(false);
