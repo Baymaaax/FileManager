@@ -36,10 +36,10 @@
         android:paddingRight="5dp">
 
         <TextView
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:text="手机分析报告"
             android:textSize="28dp"
@@ -47,20 +47,20 @@
 
 
             />
+
         <TextView
             android:id="@+id/result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:textSize="19dp"/>
+            android:textSize="19dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="建议优化清理项："
-            android:textSize="23dp"
-            />
+            android:textSize="23dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -91,8 +91,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/clean"
-                 />
+                android:background="@drawable/clean" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -124,8 +123,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/clean"
-                />
+                android:background="@drawable/clean" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -157,8 +155,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/clean"
-                 />
+                android:background="@drawable/clean" />
 
         </RelativeLayout>
 
@@ -178,8 +175,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="应用程序安装包"
                 android:layout_centerVertical="true"
+                android:text="已安装的应用程序安装包"
                 android:textSize="18dp" />
 
             <ImageButton
@@ -190,6 +187,7 @@
                 android:background="@drawable/search"
                 android:padding="2dp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -200,8 +198,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="长时间未使用的大文件"
                 android:layout_centerVertical="true"
+                android:text="长时间未使用的大文件"
                 android:textSize="18dp" />
 
             <ImageButton

@@ -36,7 +36,7 @@ public class LargeFiles extends AppCompatActivity {
     }
 
     private void deleteAllButtonInit() {
-        deleteAllLargeFiles=findViewById(R.id.delete_all_largefiles);
+        deleteAllLargeFiles = findViewById(R.id.delete_all_largefiles);
         deleteAllLargeFiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +76,7 @@ public class LargeFiles extends AppCompatActivity {
         largeFilesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FileTools.openFile(largeFiles[position],LargeFiles.this);
+                FileTools.openFile(largeFiles[position], LargeFiles.this);
             }
         });
         largeFilesList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -94,7 +94,7 @@ public class LargeFiles extends AppCompatActivity {
                             adapter.changeFiles(largeFiles);
                             adapter.notifyDataSetChanged();
                             Toast.makeText(LargeFiles.this, "已删除", Toast.LENGTH_SHORT).show();
-                        }
+                    }
 
 
                     }

@@ -5,18 +5,18 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:layout_gravity="center_vertical"
         android:id="@+id/large_files_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
         android:padding="5dp"
         android:src="@drawable/list_unknown_file" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="5dp">
 
         <TextView
             android:id="@+id/large_files_name"

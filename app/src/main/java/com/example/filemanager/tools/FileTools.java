@@ -18,22 +18,22 @@ public class FileTools {
     public final static int DOCUMENT = 2;//文档
     public final static int IMAGE = 3;//图片
     public final static int ALL_FILES = 4;//所有文件
-    public final static int APK=5;//安装包
+    public final static int APK = 5;//安装包
     public final static int CACHE_DIR = 6;//缓存文件夹
-    public final static int TEMP_DIR=7;//临时文件夹
-    public final static int LOG_FILES=8;//日志文件
-    public final static int LARGE_FILES =9;//所有类型的文件
+    public final static int TEMP_DIR = 7;//临时文件夹
+    public final static int LOG_FILES = 8;//日志文件
+    public final static int LARGE_FILES = 9;//所有类型的文件
 
     //文件后缀名
     public final static String[] musicSuffix = {".mp3", ".wma", ".ogg"};//音频文件后缀名
     public final static String[] videoSuffix = {".mp4", "mkv", "avi", "flv"};//视频文件后缀名
     public final static String[] documentSuffix = {".txt", ".doc", ".docx"};//文本文件后缀名
     public final static String[] imageSuffix = {".jpg", ".gif", ".png"};//图片文件后缀名
-    public final static String[] apkSuffix={".apk"};//应用程序安装包后缀名
-    public final static String[] cacheDirName={"cache",".cache"};//缓存文件夹常用名
-    public final static String[] tempDirName={"tmp"};//临时文件夹常用名
-    public final static String[] logSuffix={".log","log.txt","Log.txt","log1.txt"};
-    public final static String[] largeFilesSuffix ={""};
+    public final static String[] apkSuffix = {".apk"};//应用程序安装包后缀名
+    public final static String[] cacheDirName = {"cache", ".cache"};//缓存文件夹常用名
+    public final static String[] tempDirName = {"tmp"};//临时文件夹常用名
+    public final static String[] logSuffix = {".log", "log.txt", "Log.txt", "log1.txt"};//日志文件名
+    public final static String[] largeFilesSuffix = {""};//后缀名无限制
 
 
     /*
@@ -83,8 +83,8 @@ public class FileTools {
             if (file.getName().endsWith(suffix))
                 return FileTools.IMAGE;
         }
-        for (String suffix:FileTools.apkSuffix){
-            if(file.getName().endsWith(suffix))
+        for (String suffix : FileTools.apkSuffix) {
+            if (file.getName().endsWith(suffix))
                 return FileTools.APK;
         }
         //未知类型返回-1
@@ -108,7 +108,8 @@ public class FileTools {
                 openImageFile(file, mContext);
                 break;
             case APK:
-                openApkFile(file,mContext);
+                openApkFile(file, mContext);
+                break;
             default:
                 Toast.makeText(mContext, "未知的文件类型", Toast.LENGTH_SHORT).show();
                 break;
@@ -148,9 +149,9 @@ public class FileTools {
     }
 
     //打开apk文件
-    public static void openApkFile(File file,Context mContext){
-        Intent intent =new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file),"application/vnd.android.package-archive");
+    public static void openApkFile(File file, Context mContext) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         mContext.startActivity(intent);
     }
 

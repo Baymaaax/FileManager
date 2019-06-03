@@ -44,7 +44,7 @@ public class InstalledApks extends AppCompatActivity {
     }
 
     private void deleteAllApksButtonInit() {
-        deleteAllApks=findViewById(R.id.delete_all_apks);
+        deleteAllApks = findViewById(R.id.delete_all_apks);
         deleteAllApks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,28 +77,16 @@ public class InstalledApks extends AppCompatActivity {
     }
 
     private void searchApks() {
-        File root=new File(Environment.getExternalStorageDirectory().toString());
-        searcher=new FileSearcher(root, FileTools.APK);
-//        File[] apks=searcher.search();
-//        ArrayList<File> apkList=new ArrayList<>();
-//        for(File f:apks){
-//            String packageName=f.getName().substring(0,f.getName().length()-4);
-//            if(isInstalled(InstalledApks.this,packageName)){
-//                apkList.add(f);
-//            }
-//        }
-//         installedApks=new File[apkList.size()];
-//        for(int i=0;i<apkList.size();i++){
-//            installedApks[i]=apkList.get(i);
-//        }
-        installedApks=getInstalledApks(searcher.search());
-        adapter=new InstalledApkGridAdapter(InstalledApks.this,installedApks);
-        installedApkGrid =findViewById(R.id.installed_apk_grid);
+        File root = new File(Environment.getExternalStorageDirectory().toString());
+        searcher = new FileSearcher(root, FileTools.APK);
+        installedApks = getInstalledApks(searcher.search());
+        adapter = new InstalledApkGridAdapter(InstalledApks.this, installedApks);
+        installedApkGrid = findViewById(R.id.installed_apk_grid);
         installedApkGrid.setAdapter(adapter);
         installedApkGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FileTools.openFile(installedApks[position],InstalledApks.this);
+                FileTools.openFile(installedApks[position], InstalledApks.this);
             }
         });
         installedApkGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -134,38 +122,39 @@ public class InstalledApks extends AppCompatActivity {
 
     }
 
-    private boolean isInstalled(Context mContext,String packageName){
-        boolean hasInstalled=false;
-        PackageManager packageManager=mContext.getPackageManager();
-        List<PackageInfo> list=packageManager.getInstalledPackages(PackageManager.PERMISSION_GRANTED);
-        for(PackageInfo p:list){
-            if(packageName!=null&&packageName.equals(p.packageName)){
-                hasInstalled=true;
+    private boolean isInstalled(Context mContext, String packageName) {
+        boolean hasInstalled = false;
+        PackageManager packageManager = mContext.getPackageManager();
+        List<PackageInfo> list = packageManager.getInstalledPackages(PackageManager.PERMISSION_GRANTED);
+        for (PackageInfo p : list) {
+            if (packageName != null && packageName.equals(p.packageName)) {
+                hasInstalled = true;
                 break;
             }
         }
         return hasInstalled;
 
-        
+
     }
-    private File[] getInstalledApks(File[] apks){
-        ArrayList<File> apkList=new ArrayList<>();
-        for(File f:apks){
-            String packageName=f.getName().substring(0,f.getName().length()-4);
-            if(isInstalled(InstalledApks.this,packageName)){
+
+    private File[] getInstalledApks(File[] apks) {
+        ArrayList<File> apkList = new ArrayList<>();
+        for (File f : apks) {
+            String packageName = f.getName().substring(0, f.getName().length() - 4);
+            if (isInstalled(InstalledApks.this, packageName)) {
                 apkList.add(f);
             }
         }
-        installedApks=new File[apkList.size()];
-        for(int i=0;i<apkList.size();i++){
-            installedApks[i]=apkList.get(i);
+        installedApks = new File[apkList.size()];
+        for (int i = 0; i < apkList.size(); i++) {
+            installedApks[i] = apkList.get(i);
         }
         return installedApks;
 
     }
 
     private void goBackButtonInit() {
-        goBackButton=findViewById(R.id.go_back_button_apks);
+        goBackButton = findViewById(R.id.go_back_button_apks);
         goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

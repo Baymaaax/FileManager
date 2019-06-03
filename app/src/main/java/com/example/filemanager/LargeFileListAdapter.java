@@ -45,8 +45,8 @@ public class LargeFileListAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.large_files_list, null);
         ImageView fileImage = (ImageView) convertView.findViewById(R.id.large_files_image);
         TextView fileName = (TextView) convertView.findViewById(R.id.large_files_name);
-        TextView filePath=(TextView)convertView.findViewById(R.id.large_files_path);
-        TextView fileDate=(TextView)convertView.findViewById(R.id.large_files_date);
+        TextView filePath = (TextView) convertView.findViewById(R.id.large_files_path);
+        TextView fileDate = (TextView) convertView.findViewById(R.id.large_files_date);
         int fileType = FileTools.getFileType(files[position]);
         switch (fileType) {
             case FileTools.MUSIC:
@@ -70,17 +70,18 @@ public class LargeFileListAdapter extends BaseAdapter {
         }
         fileName.setText(files[position].getName());
         filePath.setText(files[position].getPath());
-        fileDate.setText("最后修改时间："+getData(files[position]));
+        fileDate.setText("最后修改时间：" + getData(files[position]));
 
         return convertView;
     }
+
     public void changeFiles(File[] newFiles) {
         this.files = newFiles;
     }
 
     private String getData(File file) {
-        SimpleDateFormat formater=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Calendar date=Calendar.getInstance();
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar date = Calendar.getInstance();
         date.setTimeInMillis(file.lastModified());
         return formater.format(date.getTime());
     }

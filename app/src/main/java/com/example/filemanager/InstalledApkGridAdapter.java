@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.io.File;
 
-public class InstalledApkGridAdapter extends BaseAdapter  {
+public class InstalledApkGridAdapter extends BaseAdapter {
     private File[] files;
     private Context mContext;
 
@@ -18,6 +18,7 @@ public class InstalledApkGridAdapter extends BaseAdapter  {
         this.files = files;
         this.mContext = mContext;
     }
+
     @Override
     public int getCount() {
         return files.length;
@@ -36,10 +37,11 @@ public class InstalledApkGridAdapter extends BaseAdapter  {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.installed_apk_grid, null);
-        TextView apkName=(TextView)convertView.findViewById(R.id.apk_name);
+        TextView apkName = (TextView) convertView.findViewById(R.id.apk_name);
         apkName.setText(files[position].getName());
         return convertView;
     }
+
     public void changeFiles(File[] newFiles) {
         this.files = newFiles;
     }

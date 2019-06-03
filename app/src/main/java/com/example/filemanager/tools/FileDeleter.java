@@ -41,13 +41,14 @@ public class FileDeleter {
         }
         return isDeleted;
     }
-    public static boolean deleteAll(File[] files){
-        boolean isDeleted=false;
-        for(File file:files){
-            if(deleteAll(file)){
-                isDeleted=true;
-            }else{
-                isDeleted=false;
+
+    public static boolean deleteAll(File[] files) {
+        boolean isDeleted = false;
+        for (File file : files) {
+            if (deleteAll(file)) {
+                isDeleted = true;
+            } else {
+                isDeleted = false;
                 break;
             }
         }

@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 size = documentSize;
                 break;
             default:
-                size=-1;
+                size = -1;
 
         }
         return size;

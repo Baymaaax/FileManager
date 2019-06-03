@@ -65,12 +65,10 @@ public class Suggestion extends AppCompatActivity {
                 break;
         }
         long largestSize = intent.getLongExtra("largestSize", 0);
-        float usedPercentage =(float) (Math.round(((float) usedSpace/totalSpace)*1000))/10;
-        float largestTypePercentage = (float) (Math.round(((float) largestSize/usedSpace)*1000))/10;
-//        float usedPercentage = (float) (Math.round((float) usedSpace / totalSpace * 1000) / 1000);
-//        float largestTypePercentage = (float) (Math.round((float) largestSize / usedSpace * 1000) / 1000);
+        float usedPercentage = (float) (Math.round(((float) usedSpace / totalSpace) * 1000)) / 10;
+        float largestTypePercentage = (float) (Math.round(((float) largestSize / usedSpace) * 1000)) / 10;
         result.setText("手机存储空间已使用" + usedPercentage + "%" +
-                ",其中" + largestTypeName + "文件占用存储空间最大，占" + largestTypePercentage  + "%");
+                ",其中" + largestTypeName + "文件占用存储空间最大，占" + largestTypePercentage + "%");
     }
 
     private void largeFilesInit() {

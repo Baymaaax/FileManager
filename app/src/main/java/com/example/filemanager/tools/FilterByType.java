@@ -14,8 +14,8 @@ public class FilterByType implements FilenameFilter {
     //过滤器构造方法
     FilterByType(int type) {
         this.type = type;
-        limitDate=Calendar.getInstance();
-        limitDate.add(Calendar.HOUR,-3);
+        limitDate = Calendar.getInstance();
+        limitDate.add(Calendar.HOUR, -3);
         switch (type) {
             case FileTools.MUSIC:
                 suffix = FileTools.musicSuffix;
@@ -42,7 +42,7 @@ public class FilterByType implements FilenameFilter {
                 suffix = FileTools.largeFilesSuffix;
                 break;
             case FileTools.APK:
-                suffix=FileTools.apkSuffix;
+                suffix = FileTools.apkSuffix;
                 break;
             default:
                 Log.e("fliter ", "未知的类型");
@@ -57,8 +57,10 @@ public class FilterByType implements FilenameFilter {
         File file = new File(dir.getPath() + File.separator + name);
         Log.i("dsp", file.getPath());
         switch (type) {
+            //缓存文件和临时文件具有相同的判断方法
             case FileTools.CACHE_DIR:
             case FileTools.TEMP_DIR: {
+                //判断前提是目录类型
                 if (file.isDirectory()) {
                     for (String str : suffix) {
                         if (name.endsWith(str)) {
@@ -68,12 +70,13 @@ public class FilterByType implements FilenameFilter {
                 }
             }
             break;
+            //长时间未使用的大文件判断依据是，大于30MB，3小时未修改（为了便于测试）
             case FileTools.LARGE_FILES: {
                 if (file.isFile() && file.length() > (30 * 1024 * 1024)) {
-                    Calendar lastModifideDate=Calendar.getInstance();
+                    Calendar lastModifideDate = Calendar.getInstance();
                     lastModifideDate.setTimeInMillis(file.lastModified());
-                    if(lastModifideDate.before(limitDate))
-                    isAccepted = true;
+                    if (lastModifideDate.before(limitDate))
+                        isAccepted = true;
                 }
 
             }
@@ -89,24 +92,7 @@ public class FilterByType implements FilenameFilter {
             }
             break;
         }
-//        if (type == FileTools.CACHE_DIR || type == FileTools.TEMP_DIR) {
-//            if (file.isDirectory()) {
-//                for (String str : suffix) {
-//                    if (name.endsWith(str)) {
-//                        isAccepted = true;
-//                    }
-//                }
-//            }
-//        } else {
-//            if(file.isFile()){
-//                for (String str : suffix) {
-//                    if (name.endsWith(str)) {
-//                        isAccepted = true;
-//                    }
-//                }
-//            }
-//
-//        }
+
         return isAccepted;
     }
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.File;
 
+//已被Cleaner替代
 //CacheCleaner类封装了清除缓存可能用到的相关方法，以及缓存大小和/data的路径
 public class CacheCleaner {
     //被清除的缓存大小，初始为0，在调用clean方法后为实际清除缓存的大小
